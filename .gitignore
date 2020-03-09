@@ -1,0 +1,8 @@
+# pycharm相关配置文件
+.idea/
+
+# python编译文件
+__pycache__/
+
+# 虚拟环境
+venv/
