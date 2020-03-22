@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chinaTrend.css') }}"/>
+{% endblock %}
+{% block title %}
+    全国疫情趋势
+{% endblock %}
+{% block content %}
+    <div id="chinaTrend" style="width:850px;height:400px;"></div>
+    <div>
+        <button type="button" id="btn0" class="btnTrend"><span>全国疫情<br>新增趋势</span></button>
+        <button type="button" id="btn1" class="btnTrend"><span>全国确诊<br>疑似/重症</span></button>
+        <button type="button" id="btn2" class="btnTrend"><span>全国累计<br>治愈/死亡</span></button>
+        <button type="button" id="btn3" class="btnTrend"><span>治愈率<br>病死率</span></button>
+    </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        var data = {{ data|safe }};
+        var legend_name_data = [
+            [{name: "新增确诊"}, {name: "新增疑似"}],
+            [
+                {name: "累计确诊"}, {name: "现有确诊"},
+                {name: "现有疑似"}, {name: "现有重症"}
+            ],
+            [{name: "累计治愈"}, {name: "累计死亡"}],
+            [{name: "治愈率"}, {name: "死亡率"}]
+        ];
+        var series_data = [
+            [
+                {type: "line", name: "新增确诊"},
+                {type: "line", name: "新增疑似"}
+            ],
+            [
+                {type: "line", name: "累计确诊"}, {type: "line", name: "现有确诊"},
+                {type: "line", name: "现有疑似"}, {type: "line", name: "现有重症"}
+            ],
+            [{type: "line", name: "累计治愈"}, {type: "line", name: "累计死亡"}],
+            [{type: "line", name: "治愈率"}, {type: "line", name: "死亡率"}]
+        ];
+        var color_data = [
+            ['#f06061', '#ffd661'],
+            ["#9b0a0e", "#ff7b7c", "#ffd661", "#cd73bf"],
+            ["#65b379", "#87878b"],
+            ["#65b379", "#87878b"]
+        ];
+
+        /*默认加载第一个趋势图*/
+        $(document).ready(function () {
+            $("#btn0").css(
+                {
+                    "background-color": "#eef4ff",
+                    "border-color": "#8fb8ff",
+                    "color": "#005def",
+                }
+            );
+            myOption(data[0], color_data[0], legend_name_data[0], series_data[0]);
+        });
+
+        function myOption(data, color, legend_name, series) {
+            /*创建实例*/
+            var myEchart = echarts.init(document.getElementById('chinaTrend'));
+            /*全国新增趋势图*/
+            var option = {
+                /*标题*/
+                title: {
+                    text: '全国疫情新增趋势',
+                    textStyle: {
+                        color: '#222',
+                        fontSize: 25,
+                    },
+                },
+                /*图例组件：data里面的值对应series里面的name*/
+                legend: {
+                    /*设置图例为矩形*/
+                    itemHeight: 17,
+                    itemWidth: 17,
+                    icon: 'rect',
+                    data: legend_name,
+                    left: 0,
+                    top: 35,
+                    bottom: 100,
+                    textStyle: {
+                        color: '#737373',
+                        fontSize: 19
+                    },
+                    /*禁止点击legend*/
+                    selectedMode: false
+                },
+                /*提示框*/
+                tooltip: {
+                    show:true,
+                    /*坐标轴触发提示*/
+                    trigger: 'axis',
+
+                },
+                color: color,
+                /*数据集*/
+                dataset: {
+                    source: data
+                },
+                xAxis: {
+                    type: 'category',
+                },
+                yAxis: {},
+                series: series,
+                // 定义坐标轴底板距离顶部的距离
+                grid: {
+                    top: 100,
+                }
+            };
+            myEchart.setOption(option);
+        }
+
+        $("button").click(function () {
+            $("button").css({
+                "background-color": "#f3f6f8",
+                "border": "1px solid #e9ebed",
+                "color": "#222",
+            });
+            $(this).css(
+                {
+                    "background-color": "#eef4ff",
+                    "border-color": "#8fb8ff",
+                    "color": "#005def",
+                }
+            );
+            var id = $(this).attr('id');
+
+            if ("btn0" == id) {
+                myOption(data[0], color_data[0], legend_name_data[0], series_data[0])
+            } else if ("btn1" == id) {
+                myOption(data[1], color_data[1], legend_name_data[1], series_data[1])
+            } else if ("btn2" == id) {
+                myOption(data[2], color_data[2], legend_name_data[2], series_data[2])
+            } else if ("btn3" == id) {
+                myOption(data[3], color_data[3], legend_name_data[3], series_data[3])
+            }
+        });
+    </script>
+{% endblock %}

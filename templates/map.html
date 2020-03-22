@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %}疫情地图{% endblock %}
+{% block content %}
+    <div id="map" class="row" style="min-width:200px;min-height:500px;"></div>
+    <script type="text/javascript">
+        var china_map_data = {{china_map_data|safe}};
+        //创建echarts实例
+        var myChart = echarts.init(document.getElementById("map"))
+        var option = {
+            // 设置标题、副标题、副标题跳转链接
+            title: {
+                text: "新冠病毒疫情地图",
+                subtext: "数据来源--腾讯新闻",
+                sublink: "https://news.qq.com//zt2020/page/feiyan.htm",
+                x: "left"
+            },
+            //数据集
+            dataset: {
+                source: {{china_map_data|safe}}
+            },
+            // 提示框
+            tooltip: {
+                // 触发类型，
+                trigger: 'item',
+                formatter: '{b}<br/>累计确诊：{c}',
+                textStyle: {
+                    align: 'center',
+                    fontSize: 20
+                }
+            },
+            // 工具栏
+            toolbox: {
+                show: true,
+                orient: 'horizontal',
+                left: 'right',
+                feature: {
+                    dataView: {
+                        readOnly: false
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            // 视觉映射方案(左侧导航图标)
+            visualMap: {
+                show: true,
+                align: 'auto',
+                // 文字大小，颜色，粗细设置
+                textStyle: {
+                    fontSize: 20,
+                    color: '#737373',
+                    fontWeight: 400
+                },
+                // 自定义分段视觉映射
+                pieces: [{
+                    gt: 10000,
+                    label: '10000人及以上'
+                },
+                    {
+                        min: 1000,
+                        max: 9999,
+                        label: '1000-999人'
+                    },
+                    {
+                        min: 500,
+                        max: 999,
+                        label: '500-999人'
+                    },
+                    {
+                        min: 100,
+                        max: 499,
+                        label: '100-499人'
+                    },
+                    {
+                        min: 10,
+                        max: 99,
+                        label: '10-99人'
+                    },
+                    {
+                        min: 1,
+                        max: 9,
+                        label: '1-9人'
+                    },
+                    {
+                        value: 0,
+                        label: '0人'
+                    }
+                ],
+                // 定义颜色
+                inRange: {
+                    color: ["#e2ebf4", "#ffe7b2", "#ffcea0", "#ffa577", "#ff6341", "#ff2736", "#de1f05"],
+                }
+            },
+            // 系列属性设置
+            series: [{
+                name: '各省确诊病例',
+                type: 'map',
+                map: 'china',
+                //  拖动和缩放
+                roam: false,
+                // 普通itemStyle设置
+                itemStyle: {
+                    borderWidth: 1,
+                    borderColor: "#ffffff",
+                    // 区域颜色
+                    areaColor: "#ffefd5"
+                },
+                // 地图上的文本标签
+                label: {
+                    // 省份名字
+                    show: true,
+                    fontSize: 12,
+                },
+
+                // 高亮样式设置(点击滑动到上面的样式)
+                emphasis: {
+                    itemStyle: {
+                        areaColor: "#FFE766"
+                    },
+                    label: {
+                        // 省份名字
+                        show: true,
+                        fontSize: 8
+                    }
+                }
+            }]
+        };
+        myChart.setOption(option);
+        /*echarts在bootstrap框架下的自适应*/
+        window.addEventListener("resize", function () {
+            myChart.resize();
+        });
+
+    </script>
+
+{% endblock %}

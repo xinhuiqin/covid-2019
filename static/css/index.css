@@ -1,0 +1,84 @@
+.icbar {
+    width: 29.6vw;
+    margin: 0 .533vw .533vw 0;
+    padding: 1.6vw 0 3.2vw;
+    position: relative;
+    text-align: center;
+}
+
+/*背景色设置*/
+.icbar.confirm {
+    background-color: #fdf1f1;
+}
+
+.icbar.heal {
+    background-color: #f1f8f4;
+}
+
+.icbar.dead {
+    background-color: #f3f6f8;
+}
+
+.icbar.nowConfirm {
+    background-color: #f3f6f8;
+}
+
+.icbar.nowConfirm {
+    background-color: #fdf1f1;
+}
+
+.icbar.nowSevere {
+    background-color: #faf2f6;
+}
+
+.icbar.import {
+    background-color: #fcf4f0;
+}
+
+/*数字样式统一设置*/
+.icbar .number {
+    font-size: 5.867vw;
+    line-height: 5.867vw;
+    height: 5.867vw;
+    font-weight: 600;
+}
+
+/*文字样式同一设置*/
+.icbar .text {
+    font-size: 3.2vw;
+    height: 3.2vw;
+    line-height: 3.2vw;
+    color: #222;
+    font-weight: 500;
+    margin-top: 1.6vw;
+}
+
+/* 数字颜色设置 */
+.confirm .number {
+    color: #cc1e1e;
+}
+
+.heal .number {
+    color: #178b50;
+}
+
+.dead .number {
+    olor: #4e5a65;
+}
+
+.nowConfirm .number {
+    color: #f23a3b;
+}
+
+.nowSevere .number {
+    color: #ca3f81;
+}
+
+.import .number {
+    color: #f05926;
+}
+
+.timeNum {
+	margin: 40px -15px;
+    color: #737373;
+}
