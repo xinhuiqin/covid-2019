@@ -6,6 +6,8 @@ import traceback
 import pymysql
 import requests
 
+from utils import get_conn, close_conn
+
 tencent_h5_url = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5'
 tencent_other_url = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_other'
 
@@ -90,30 +92,6 @@ def get_tencent_data():
     return china_day_data, provience_day_data
 
 
-def get_conn():
-    """
-    数据库连接
-    :return: connection obj, cursor obj
-    """
-    conn = pymysql.connect(host='localhost', user='root', password='123456', database='covid_2019',
-                           charset='utf8mb4')
-    cursor = conn.cursor()
-    return conn, cursor
-
-
-def close_conn(conn, cursor):
-    """
-    关闭数据库连接
-    :param cursor: cursor obj
-    :param conn: connection obj
-    :return: None
-    """
-    if conn:
-        conn.close()
-    if cursor:
-        cursor.close()
-
-
 def insert_china_day():
     """
        中国每日汇总数据表首次插入
@@ -163,7 +141,7 @@ def update_china_day():
         cursor.execute(sql_query, list(data.items())[-1][0])
         if not cursor.fetchone():
             print(f'{time.asctime()} 开始更新china_day_list')
-            list(data.items())[-1][1].update({'ds':list(data.items())[-1][0]})
+            list(data.items())[-1][1].update({'ds': list(data.items())[-1][0]})
             cursor.execute(sql, list(data.items())[-1][1])
             conn.commit()
             print(f'{time.asctime()} china_day_list更新完毕')

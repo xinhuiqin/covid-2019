@@ -7,7 +7,7 @@ def get_conn():
     数据库连接
     :return: connection obj, cursor obj
     """
-    conn = pymysql.connect(host='localhost', user='root', password='123456', database='covid_2019',
+    conn = pymysql.connect(host='47.107.136.2', user='root', password='123456', database='covid_2019',
                            charset='utf8mb4')
     cursor = conn.cursor()
     return conn, cursor
