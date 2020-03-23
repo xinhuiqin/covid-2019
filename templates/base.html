@@ -8,7 +8,7 @@
         <title>{% block title %}{% endblock title %}-Sweeneys</title>
         <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
         <!-- Bootstrap CSS -->
-        <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.css" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
