@@ -3,7 +3,6 @@ import json
 import time
 import traceback
 
-import pymysql
 import requests
 
 from utils import get_conn, close_conn
@@ -185,6 +184,6 @@ def insert_provience_day():
 
 
 if __name__ == '__main__':
-    insert_china_day()
+    # insert_china_day()
     insert_provience_day()
     update_china_day()
