@@ -37,6 +37,13 @@
                 <a class="nav-link {% if request.endpoint=='china_trend' %}active{% endif %}"
                    href="{{ url_for('china_trend') }}">全国趋势</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/xinhuiqin/covid-2019">
+                    <img style="max-height: 30px;margin-top: -5px" src="{{ url_for('static', filename='images/github-mark.png') }}"
+                         alt="">
+                </a>
+            </li>
+
         </ul>
     </div>
 {% endblock %}
