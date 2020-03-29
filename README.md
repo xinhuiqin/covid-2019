@@ -3,7 +3,7 @@ typora-copy-images-to: docs\images
 ---
 
 # covid-2019
-使用python + flask + echarts + bootstrap绘制2019新冠肺炎疫情图，数据来源于腾讯新闻。[项目地址](http://47.107.136.2:81/)。
+使用python + flask + echarts + bootstrap绘制2019新冠肺炎疫情图，数据来源于腾讯新闻。[项目地址](http://47.107.136.2:82/)。
 
 ![image-20200324070801279](docs/images/image-20200324070801279.png)
 
